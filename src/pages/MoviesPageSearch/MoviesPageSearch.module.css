@@ -1,0 +1,24 @@
+/* MoviesPageSearch */
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.input {
+  width: 250px;
+  height: 45px;
+  padding: 0 10px;
+  border: 1px solid rgba(33, 33, 33, 0.2);
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.input:focus {
+  outline-color: var(--accentColor);
+}
+
+.btn {
+  opacity: 0;
+}
