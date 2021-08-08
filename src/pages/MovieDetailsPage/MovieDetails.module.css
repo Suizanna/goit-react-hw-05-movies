@@ -1,4 +1,4 @@
-/* .main {
+.main {
   padding: 40px 0;
   text-align: left;
 }
@@ -12,7 +12,7 @@
     display: flex;
   }
 }
-/*  */
+
 .poster {
   max-width: 320px;
   height: 500px;
@@ -32,13 +32,6 @@
   text-align: left;
 }
 
-/* @media screen and (min-width: 768px) {
-  .movieTitle {
-    text-align: left;
-  }
-} */
-
-/*=========  */
 .filmTitle {
   margin-bottom: 20px;
   font-weight: 700;
@@ -47,6 +40,12 @@
   letter-spacing: 0.03em;
   text-shadow: var(--textShadow);
   text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .filmTitle {
+    text-align: left;
+  }
 }
 
 .info {
@@ -59,6 +58,17 @@
   font-family: "Bangers", sans-serif;
   letter-spacing: 0.2em;
   color: var(--accentColor);
+}
+
+.genre {
+  /* composes: info; */
+  display: flex;
+  align-items: center;
+}
+
+.genre li:not(:last-child)::after {
+  content: ",";
+  margin-right: 5px;
 }
 
 /* ===== go back ==== */
@@ -81,23 +91,12 @@
   font-size: 20px;
 }
 
-.btn:hover,
+/* .btn:hover,
 .btn:focus {
   opacity: 0.8;
-}
-/* ================================ */
-
-/* .genre {
-  composes: info;
-  display: flex;
-  align-items: center;
-}
-
-.genre li:not(:last-child)::after {
-  content: ",";
-  margin-right: 5px;
 } */
-
+/* ================================ */
+/* Cast и Reviews */
 .nav {
   display: flex;
   align-items: center;
@@ -111,6 +110,7 @@
   font-weight: 500;
   font-size: 18px;
   color: var(--primaryTextColor);
+  text-decoration: none;
 }
 
 .activeLink {

@@ -35,6 +35,7 @@ export default function MovieDetails() {
     let cleanupFunction = false;
     if (location.state?.id) {
       getFilmById(location.state.id).then((resp) => {
+        console.log(resp);
         if (!cleanupFunction) {
           setState((prev) => ({
             ...prev,
@@ -47,7 +48,7 @@ export default function MovieDetails() {
   }, [location.state.id]);
 
   return (
-    <div>
+    <main className={s.main}>
       <Button
         className={s.btn}
         variant="contained"
@@ -58,54 +59,68 @@ export default function MovieDetails() {
           });
         }}
       >
-        go back
+        &#9754; go back
       </Button>
+      <>
+        <div className={s.wrapper}>
+          <img
+            className={s.poster}
+            src={
+              state.film?.poster_path !== null &&
+              state.film?.poster_path !== undefined
+                ? imgUrl + state.film.poster_path
+                : defaultPoster
+            }
+            alt={state.film?.tagline}
+            width="300"
+          />
+          <div className={s.description}>
+            <h1 className={s.filmTitle}>{state.film?.original_title}</h1>
+            <h3 className={s.title}>User Score</h3>
+            <p className={s.info}>{state.film?.vote_average}</p>
+            <h3 className={s.title}>Release Date</h3>
+            <p className={s.info}>{state.film?.release_date}</p>
 
-      <h1 className={s.filmTitle}>{state.film?.original_title}</h1>
+            <h3 className={s.title}>Overview</h3>
+            <p className={s.info}>{state.film?.overview}</p>
+            <h3 className={s.title}>Genres</h3>
+            <ul className={s.genre}>
+              {state.film?.genres.map((genre) => (
+                <li key={genre.id}>{genre.name}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <ul className={s.nav}>
+          <NavLink
+            to={{
+              pathname: `${match.url}/cast`,
+              state: location.state,
+            }}
+            className={s.link}
+            activeClassName={s.activeLink}
+          >
+            {/* <Button style={{ fontSize: "28px" }} color="primary"> */}
+            Cast
+            {/* </Button> */}
+          </NavLink>
 
-      <img //className={s.poster}
-        src={
-          state.film?.poster_path !== null &&
-          state.film?.poster_path !== undefined
-            ? imgUrl + state.film.poster_path
-            : defaultPoster
-        }
-        alt={state.film?.tagline}
-        width="300"
-      />
-
-      <h3 className={s.info}>Film info</h3>
-      <h3 className={s.title}>Overview</h3>
-      <p className={s.info}>{state.film?.overview}</p>
-      <NavLink
-        style={{
-          textDecoration: "none",
-        }}
-        to={{
-          pathname: `${match.url}/cast`,
-          state: location.state,
-        }}
-      >
-        <Button style={{ fontSize: "28px" }} color="primary">
-          Cast
-        </Button>
-      </NavLink>
-
-      <NavLink
-        style={{
-          textDecoration: "none",
-        }}
-        to={{
-          pathname: `${match.url}/reviews`,
-          state: location.state,
-        }}
-      >
-        <Button style={{ fontSize: "28px" }} color="primary">
-          Reviews
-        </Button>
-      </NavLink>
-      <Route path={`${match.path}/reviews`} exact component={Reviews} />
-      <Route path={`${match.path}/cast`} exact component={Cast} />
-    </div>
+          <NavLink
+            to={{
+              pathname: `${match.url}/reviews`,
+              state: location.state,
+            }}
+            className={s.link}
+            activeClassName={s.activeLink}
+          >
+            {/* <Button style={{ fontSize: "28px" }} color="primary"> */}
+            Reviews
+            {/* </Button> */}
+          </NavLink>
+        </ul>
+        <Route path={`${match.path}/reviews`} exact component={Reviews} />
+        <Route path={`${match.path}/cast`} exact component={Cast} />
+      </>
+    </main>
   );
 }
