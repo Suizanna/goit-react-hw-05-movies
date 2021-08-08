@@ -9,6 +9,9 @@ import shortId from "shortid";
 // helpers
 import { getCastInfo } from "../../services/apiService";
 
+//css
+import s from "./Cast.module.css";
+
 const imgUrl = "https://image.tmdb.org/t/p/w500/";
 const defaultAvatar =
   "https://premiumt.ru/wp-content/uploads/2019/02/avatar.png";
@@ -24,45 +27,26 @@ export default function Cast() {
   }, [location.state.id]);
   return (
     <div>
-      <ul
-        style={{
-          listStyle: "none",
-          display: "flex",
-          paddingLeft: 0,
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-          margin: "0 auto",
-          width: "80%",
-          alignItems: "center",
-        }}
-      >
+      <ul className={s.cast}>
         {state.length > 0 ? (
-          state.map(({ original_name, profile_path }) => (
-            <li
-              key={shortId.generate()}
-              style={{
-                padding: "20px",
-                width: "140px",
-              }}
-            >
-              <h4>{original_name}</h4>
+          state.map(({ original_name, profile_path, character }) => (
+            <li key={shortId.generate()} className={s.item}>
               <img
                 src={
                   profile_path !== null ? imgUrl + profile_path : defaultAvatar
                 }
                 alt={original_name}
-                width="80"
+                className={s.photo}
               />
+              <h4 className={s.name}>{original_name}</h4>
+              <p className={s.character}>{character}</p>
             </li>
           ))
         ) : (
-          <li
-            style={{
-              padding: "20px",
-              margin: "0 auto",
-            }}
-          >
-            <p>Список актеров по данному фильму отсутствует.</p>
+          <li>
+            <p className={s.textReviews}>
+              We don't have any Series Cast for this film.
+            </p>
           </li>
         )}
       </ul>

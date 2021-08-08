@@ -91,11 +91,11 @@
   font-size: 20px;
 }
 
-/* .btn:hover,
+.btn:hover,
 .btn:focus {
   opacity: 0.8;
-} */
-/* ================================ */
+}
+
 /* Cast и Reviews */
 .nav {
   display: flex;

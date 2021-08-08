@@ -1,6 +1,4 @@
-/* eslint-disable no-undef */
-// страница с детальной информацией о кинофильме.
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import {
   Route,
   NavLink,
@@ -9,18 +7,24 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 
-// Components
-import Cast from "../../components/Cast/Cast";
-import Reviews from "../../components/Reviews/Reviews";
-
 // helpers
 import { getFilmById } from "../../services/apiService";
 
 // material-ui
 import Button from "@material-ui/core/Button";
 
-//css
 import s from "../MovieDetailsPage/MovieDetails.module.css";
+
+// Components
+const Cast = lazy(() =>
+  import("../../components/Cast/Cast" /* webpackChunkName: "cast-subview"*/)
+);
+
+const Reviews = lazy(() =>
+  import(
+    "../../components/Reviews/Reviews" /* webpackChunkName: "reviews-subview"*/
+  )
+);
 
 const imgUrl = "https://image.tmdb.org/t/p/w500/";
 const defaultPoster = "https://media.comicbook.com/files/img/default-movie.png";
@@ -72,7 +76,6 @@ export default function MovieDetails() {
                 : defaultPoster
             }
             alt={state.film?.tagline}
-            width="300"
           />
           <div className={s.description}>
             <h1 className={s.filmTitle}>{state.film?.original_title}</h1>
@@ -80,13 +83,17 @@ export default function MovieDetails() {
             <p className={s.info}>{state.film?.vote_average}</p>
             <h3 className={s.title}>Release Date</h3>
             <p className={s.info}>{state.film?.release_date}</p>
+            <h3 className={s.title}>Production Countries</h3>
+            <p className={s.info}>{state.film?.production_countries.name}</p>
 
             <h3 className={s.title}>Overview</h3>
             <p className={s.info}>{state.film?.overview}</p>
             <h3 className={s.title}>Genres</h3>
             <ul className={s.genre}>
               {state.film?.genres.map((genre) => (
-                <li key={genre.id}>{genre.name}</li>
+                <li className={s.info} key={genre.id}>
+                  {genre.name}
+                </li>
               ))}
             </ul>
           </div>
@@ -118,8 +125,10 @@ export default function MovieDetails() {
             {/* </Button> */}
           </NavLink>
         </ul>
-        <Route path={`${match.path}/reviews`} exact component={Reviews} />
-        <Route path={`${match.path}/cast`} exact component={Cast} />
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <Route path={`${match.path}/reviews`} exact component={Reviews} />
+          <Route path={`${match.path}/cast`} exact component={Cast} />
+        </Suspense>
       </>
     </main>
   );

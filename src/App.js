@@ -1,12 +1,14 @@
 import { Switch, Route, Redirect } from "react-router-dom";
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import AppBar from "./components/AppBar/AppBar";
 import Container from "./components/Container/Container";
 import { ToastContainer } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
-// import HomePage from "./pages/HomePage/HomePage";
 
+// Back To Top button
+import { addBackToTop } from "vanilla-back-to-top";
+
+// import HomePage from "./pages/HomePage/HomePage";
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const MoviesPageSearch = lazy(() =>
   import("./pages/MoviesPageSearch/MoviesPageSearch")
@@ -18,6 +20,11 @@ const MovieDetailsPage = lazy(() =>
 //навигация по всем раутам на страницах
 
 export default function App() {
+  useEffect(() => {
+    addBackToTop({
+      backgroundColor: "#759ffa",
+    });
+  }, []);
   return (
     <Container>
       <AppBar />

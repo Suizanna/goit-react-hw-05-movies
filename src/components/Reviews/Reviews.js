@@ -1,12 +1,15 @@
 // информация об обзорах. Рендерится на странице <MovieDetailsPage>.
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import ShowMore from "react-simple-show-more";
 
 // helpers
 import { getReviewsInfo } from "../../services/apiService";
 
 // libraries
 import shortId from "shortid";
+
+import s from "./Reviews.module.css";
 
 const imgUrl = "https://image.tmdb.org/t/p/w500";
 const defaultAvatar =
@@ -27,18 +30,7 @@ export default function Reviews() {
   }, [location.state.id]);
   return (
     <div>
-      <ul
-        style={{
-          listStyle: "none",
-          display: "flex",
-          paddingLeft: 0,
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-          margin: "0 auto",
-          width: "80%",
-          alignItems: "center",
-        }}
-      >
+      <ul className={s.item}>
         {state.length > 0 ? (
           state.map(({ author, author_details: { avatar_path }, content }) => {
             //если avatar_path есть
@@ -49,20 +41,30 @@ export default function Reviews() {
               : defaultAvatar;
             return (
               <li key={shortId.generate()}>
-                <h4>{author}</h4>
                 <img src={img} alt={author} width="80" />
-                <p>{content}</p>
+                <h4 className={s.author}>{author}</h4>
+                {/* <p>{content}</p> */}
+                <p className={s.content}>
+                  <ShowMore
+                    text={content}
+                    length={700}
+                    showMoreLabel=" Show more >>"
+                    showLessLabel=" Show less <<"
+                    style={{
+                      cursor: "pointer",
+                      color: "#fa7584",
+                      fontWeight: "bold",
+                    }}
+                  />
+                </p>
               </li>
             );
           })
         ) : (
-          <li
-            style={{
-              padding: "20px",
-              margin: "0 auto",
-            }}
-          >
-            <p>Отзывы по данному фильму отсутствуют.</p>
+          <li>
+            <p className={s.textReviews}>
+              We don't have any reviews for this film.
+            </p>
           </li>
         )}
       </ul>

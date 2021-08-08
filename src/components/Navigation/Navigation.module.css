@@ -22,7 +22,7 @@
   font-size: 18px;
 }
 
-.activeLink {
-  /* composes: link; */
+/* .activeLink {
+  composes: link;
   color: var(--accentColor);
-}
+} */
