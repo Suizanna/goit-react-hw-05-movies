@@ -14,26 +14,21 @@ function MoviesPageSearch() {
   const handleChangeQuery = (e) => {
     setInput(e.target.value);
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (input.trim() === "") {
       setInput("");
-      return toast.info("😱 Please enter a value for search movies!");
-    } else {
-      // history.push({
-      //   pathname: history.location.pathname,
-      //   search: `?q=${input}`,
-      // });
-      // history.push(`?q=${input}`);
-      getFilmsByQuery(input).then((resp) => setFilms(resp.data.results));
-
-      //   if (resp.data.results.length < 1) {
-      //     setInput("");
-      //     return toast.error(`Your search - ${input} - did not match any images`);
-      //   }
+      toast.info("😱 Please enter a value for search movies!");
     }
+    getFilmsByQuery(input).then((resp) => {
+      if (resp.data.results.length < 1) {
+        setInput("");
+        toast.error(`Your search - ${input} - did not match any images`);
+      } else {
+        setFilms(resp.data.results);
+      }
+    });
   };
 
   useEffect(() => {

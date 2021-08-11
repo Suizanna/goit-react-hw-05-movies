@@ -75,7 +75,6 @@
 .btn {
   height: 47px;
   margin-bottom: 20px;
-  margin-top: 20px;
   padding: 10px 20px;
   background-color: var(--accentColor);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
@@ -85,7 +84,6 @@
   transition: opacity 250ms var(--timingFn);
   cursor: pointer;
   border-radius: 4px;
-
   color: var(--primaryTextColor);
   font-weight: 500;
   font-size: 20px;

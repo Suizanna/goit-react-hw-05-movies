@@ -15,7 +15,7 @@ const FilmListItem = ({ film, query }) => {
         to={{
           pathname: `/movies/${film.id}`, //наш раут фильма
           //записываем в state. если приходит prop search - записываем query, который в пропсах принимаем
-          //когда переходим из стр поиска фильмов prop search приходит. когда из home - нет
+          //когда переходим из стр-цы поиска фильмов prop search приходит. когда из home - нет
           state: {
             search: query !== undefined ? query : "",
             id: film.id,

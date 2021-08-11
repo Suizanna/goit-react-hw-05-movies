@@ -58,7 +58,7 @@ export {
 // }
 
 // export function getTrending() {
-//   return apiService(`${BASE_URL}/trending/movie/day?api_key=${API_KEY}`);
+//   return apiService(`${BASE_URL}/trending/movie/day?api_key=${API_KEY}&page=${page}`);
 // }
 
 // export function searchMovies(query) {

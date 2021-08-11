@@ -39,7 +39,7 @@ export default function MovieDetails() {
     let cleanupFunction = false;
     if (location.state?.id) {
       getFilmById(location.state.id).then((resp) => {
-        console.log(resp);
+        // console.log(resp);
         if (!cleanupFunction) {
           setState((prev) => ({
             ...prev,
@@ -84,8 +84,7 @@ export default function MovieDetails() {
             <h3 className={s.title}>Release Date</h3>
             <p className={s.info}>{state.film?.release_date}</p>
             <h3 className={s.title}>Production Countries</h3>
-            <p className={s.info}>{state.film?.production_countries.name}</p>
-
+            <p className={s.info}>{state.film?.production_countries[0].name}</p>
             <h3 className={s.title}>Overview</h3>
             <p className={s.info}>{state.film?.overview}</p>
             <h3 className={s.title}>Genres</h3>
@@ -99,31 +98,33 @@ export default function MovieDetails() {
           </div>
         </div>
         <ul className={s.nav}>
-          <NavLink
-            to={{
-              pathname: `${match.url}/cast`,
-              state: location.state,
-            }}
-            className={s.link}
-            activeClassName={s.activeLink}
-          >
-            {/* <Button style={{ fontSize: "28px" }} color="primary"> */}
-            Cast
-            {/* </Button> */}
-          </NavLink>
+          <li>
+            <NavLink
+              to={{
+                pathname: `${match.url}/cast`,
+                state: location.state,
+              }}
+              className={s.link}
+              activeClassName={s.activeLink}
+            >
+              {/* <Button style={{ fontSize: "28px" }} color="primary"> */}
+              Cast
+              {/* </Button> */}
+            </NavLink>
 
-          <NavLink
-            to={{
-              pathname: `${match.url}/reviews`,
-              state: location.state,
-            }}
-            className={s.link}
-            activeClassName={s.activeLink}
-          >
-            {/* <Button style={{ fontSize: "28px" }} color="primary"> */}
-            Reviews
-            {/* </Button> */}
-          </NavLink>
+            <NavLink
+              to={{
+                pathname: `${match.url}/reviews`,
+                state: location.state,
+              }}
+              className={s.link}
+              activeClassName={s.activeLink}
+            >
+              {/* <Button style={{ fontSize: "28px" }} color="primary"> */}
+              Reviews
+              {/* </Button> */}
+            </NavLink>
+          </li>
         </ul>
         <Suspense fallback={<h1>Loading...</h1>}>
           <Route path={`${match.path}/reviews`} exact component={Reviews} />

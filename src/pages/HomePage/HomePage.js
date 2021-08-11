@@ -34,13 +34,11 @@ const HomePage = () => {
             <li key={film.id}>
               <Link
                 to={{
-                  pathname: `/movies/${film.id}`, //наш раут фильма
-                  //записываем в state. если приходит prop search - записываем query, который в пропсах принимаем
-                  //когда переходим из стр поиска фильмов prop search приходит. когда из home - нет
+                  pathname: `/movies/${film.id}`,
                   state: {
                     // search: query !== undefined ? query : "",
                     id: film.id,
-                    from: location.pathname, //откуда, с какой страницы перешли
+                    from: location.pathname, 
                   },
                 }}
               >
@@ -50,9 +48,6 @@ const HomePage = () => {
                     film?.poster_path !== undefined
                       ? imgUrl + film.poster_path
                       : defaultPoster
-                    // film.poster_path
-                    //   ? `https://image.tmdb.org/t/p/w500${film.poster_path}`
-                    //   : "https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg"
                   }
                   alt={film.title}
                 ></img>
@@ -67,9 +62,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-//
-//useRouteMatc возвращ. объект, как текущий компонент совпал с маршрутов в адресной строке
-//*для состав. вложенной навигации используем значение свойства url.это всегда текущий путь
-//динамические url-параметры. вложенная навигация.
-//  c match берем  url свойство
-//   const { url } = useRouteMatch();
